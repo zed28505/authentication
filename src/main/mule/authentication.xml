@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="74c8c9ef-ddd0-4d80-a3f7-ff6a0f644820" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="authenticationFlow" doc:id="00f19afe-fd91-41d1-82aa-52220d5e73bf" >
+		<http:listener doc:name="Listener" doc:id="04535247-eea3-4906-8ea2-3957cee32f33" config-ref="HTTP_Listener_config" path="/auth"/>
+		<set-variable value="4" doc:name="Set Variable" doc:id="d9ab265e-979e-4989-815f-e94aef5079d9" variableName="var1"/>
+		<set-variable value="5" doc:name="Set Variable" doc:id="acdc30dc-0c8d-4239-8ec6-b5db6d728106" variableName="var2"/>
+		<ee:transform doc:name="Transform Message" doc:id="80b26680-6137-4d94-9d67-d358a49b5878">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"add":vars.var1 as Number + vars.var2 as Number
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="9ed5391a-6cf6-4a98-aba2-ce1bc3f1c62c" />
+	</flow>
+</mule>
