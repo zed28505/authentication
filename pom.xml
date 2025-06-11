@@ -26,7 +26,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-clean-plugin</artifactId>
-				<version>3.2.0</version>
+				<version>4.3.0</version>
 			</plugin>
 			<plugin>
 				<groupId>org.mule.tools.maven</groupId>
@@ -39,7 +39,8 @@
 						<uri>https://anypoint.mulesoft.com</uri>
 						<provider>MC</provider>
 						<environment>${environment}</environment>
-						<target>${targetName}</target>
+						<type>cloudhub</type>
+						<target>CloudHub</target>
 						<muleVersion>${muleVersion}</muleVersion>
 						<username>${user}</username>
 						<password>${pass}</password>
